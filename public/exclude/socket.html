@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery UI Draggable - Default functionality</title>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css">
+		<style>
+		#draggable { width: 150px; height: 150px; padding: 0.5em; }
+		</style>
+	</head>
+	<body>
+	 
+	<div id="draggable" class="ui-widget-content">
+		<p>Drag me around</p>
+	</div>
+	 
+	 
+	</body>
+	<script>
+		var data = { left: 0, top:0};
+		var socket = io();
+		socket.on('pos', function (data) {
+			$('#draggable').css('left',data.left)
+			$('#draggable').css('top',data.top)
+		});
+		$(function() {
+			$( "#draggable" ).draggable({
+				drag: function() {
+			    	data.left = $('#draggable').css('left')
+			    	data.top = $('#draggable').css('top')
+			    	socket.emit('pos', data);
+			    }
+			});
+		});
+			
+	</script>
+</html>

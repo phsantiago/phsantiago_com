@@ -1,0 +1,6 @@
+ewriteEngine On
+RewriteCond %{HTTP_HOST} ^11\.11\.11\.111$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^([a-z.]+)?phsantiago\.com$ [NC]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.phsantiago.com/$1 [R=301,L]
